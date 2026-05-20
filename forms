@@ -1,0 +1,331 @@
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&display=swap');
+
+    :root {
+        --fw-vermelho: #e70404;
+        --fw-vermelho-hover: #c90303;
+        --fw-preto-card: #0a0a0a;
+        --fw-borda: #222222;
+        --fw-branco: #ffffff;
+        --fw-cinza-texto: #cccccc;
+        --fw-input-bg: #f4f5f7;
+        --font-main: 'Sora', sans-serif;
+    }
+
+    .tf-card {
+        font-family: var(--font-main);
+        background: var(--fw-preto-card);
+        border: 1px solid var(--fw-borda);
+        border-radius: 12px;
+        padding: 50px 40px;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+        max-width: 550px;
+        margin: 0 auto;
+        color: var(--fw-branco);
+        text-align: left;
+    }
+
+    /* Cabeçalho do Form */
+    .tf-sup-title {
+        color: var(--fw-vermelho);
+        font-size: 0.85rem;
+        font-weight: 800;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+    }
+
+    .tf-main-title {
+        font-size: 1.8rem; /* Aumentado */
+        font-weight: 700;
+        margin-bottom: 25px;
+        line-height: 1.3;
+    }
+
+    /* Barras de Progresso */
+    .tf-progress-container {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 35px;
+    }
+
+    .tf-progress-bar {
+        height: 5px;
+        flex: 1;
+        background: #333333;
+        border-radius: 3px;
+        transition: background 0.4s ease;
+    }
+
+    .tf-progress-bar.active {
+        background: var(--fw-vermelho);
+    }
+
+    /* Título da Etapa atual */
+    .tf-step-title {
+        font-size: 1.3rem; /* Aumentado */
+        font-weight: 700;
+        margin-bottom: 25px;
+        color: var(--fw-branco);
+    }
+
+    /* Campos de Input */
+    .tf-group {
+        margin-bottom: 24px;
+    }
+
+    .tf-group label {
+        display: block;
+        font-size: 1.05rem; /* Aumentado */
+        font-weight: 600;
+        margin-bottom: 10px;
+        color: var(--fw-branco);
+    }
+
+    .tf-group input, .tf-group select {
+        width: 100%;
+        padding: 18px; /* Aumentado para dar respiro */
+        background: var(--fw-input-bg);
+        border: 2px solid transparent;
+        border-radius: 8px;
+        color: #000000;
+        font-family: var(--font-main);
+        font-size: 1.2rem; /* Fonte maior para melhor leitura */
+        font-weight: 600; 
+        outline: none;
+        transition: all 0.3s ease;
+        appearance: none;
+    }
+
+    /* Estilizando o placeholder */
+    .tf-group input::placeholder {
+        font-weight: 400;
+        color: #7a7a7a;
+        font-size: 1.05rem;
+    }
+
+    .tf-group input:focus, .tf-group select:focus {
+        border-color: var(--fw-vermelho);
+        background: var(--fw-branco);
+    }
+
+    /* Ocultar etapas */
+    .tf-step {
+        display: none;
+        animation: fadeIn 0.4s ease;
+    }
+
+    .tf-step.active {
+        display: block;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Botões */
+    .tf-footer {
+        display: flex;
+        gap: 15px;
+        margin-top: 35px;
+    }
+
+    .btn-tf {
+        flex: 1;
+        padding: 20px 16px; /* Botão mais robusto */
+        font-size: 1.2rem; /* Aumentado */
+        font-weight: 700;
+        border-radius: 8px;
+        cursor: pointer;
+        font-family: var(--font-main);
+        transition: all 0.3s ease;
+        text-align: center;
+        border: none;
+    }
+
+    .btn-primary {
+        background: var(--fw-vermelho);
+        color: var(--fw-branco);
+    }
+
+    .btn-primary:hover {
+        background: var(--fw-vermelho-hover);
+        transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+        background: #1a1a1a;
+        color: var(--fw-cinza-texto);
+        border: 1px solid #333333;
+    }
+
+    .btn-secondary:hover {
+        background: #252525;
+        color: var(--fw-branco);
+    }
+    
+    /* Mensagem de Erro */
+    .tf-error {
+        color: var(--fw-vermelho);
+        font-size: 0.9rem;
+        margin-top: 5px;
+        display: none;
+        font-weight: 600;
+    }
+
+    /* ===== AJUSTES PARA MOBILE ===== */
+    @media (max-width: 768px) {
+        .tf-card {
+            padding: 30px 20px; /* Reduz o espaçamento interno nas bordas */
+            max-width: 100%;
+        }
+        
+        .tf-main-title {
+            font-size: 1.5rem; /* Ajuste proporcional para não quebrar a tela */
+        }
+        
+        .tf-step-title {
+            font-size: 1.2rem;
+        }
+
+        .tf-group label {
+            font-size: 1rem;
+        }
+
+        .tf-group input, .tf-group select {
+            font-size: 1.1rem; /* Mantém um bom tamanho (evita zoom no iPhone) */
+            padding: 15px;
+        }
+
+        .btn-tf {
+            padding: 16px;
+            font-size: 1.1rem;
+        }
+    }
+</style>
+
+<div class="tf-card" id="formulario">
+    <div class="tf-sup-title">Solicitação de Orçamento</div>
+    <div class="tf-main-title">Fale com um especialista FiberWan</div>
+
+    <div class="tf-progress-container">
+        <div class="tf-progress-bar active" id="bar-1"></div>
+        <div class="tf-progress-bar" id="bar-2"></div>
+    </div>
+
+    <form id="tf-lead-form" action="/seu-link-de-obrigado" method="POST">
+        
+        <div class="tf-step active" id="step-1">
+            <div class="tf-step-title">Dados de contato</div>
+            
+            <div class="tf-group">
+                <label for="tf-nome">Nome Completo</label>
+                <input type="text" id="tf-nome" name="nome" placeholder="Seu nome" required>
+            </div>
+            
+            <div class="tf-group">
+                <label for="tf-email">E-mail Profissional</label>
+                <input type="email" id="tf-email" name="email" placeholder="email@empresa.com.br" required>
+            </div>
+            
+            <div class="tf-group">
+                <label for="tf-telefone">Telefone / WhatsApp</label>
+                <input type="tel" id="tf-telefone" name="telefone" placeholder="(11) 90000-0000" maxlength="15" required>
+            </div>
+
+            <div class="tf-error" id="error-step-1">Preencha todos os campos corretamente para avançar.</div>
+
+            <div class="tf-footer">
+                <button type="button" class="btn-tf btn-primary" onclick="nextStep()">Continuar</button>
+            </div>
+        </div>
+
+        <div class="tf-step" id="step-2">
+            <div class="tf-step-title">Dados da empresa</div>
+
+            <div class="tf-group">
+                <label for="tf-empresa">Nome da Empresa</label>
+                <input type="text" id="tf-empresa" name="empresa" placeholder="Sua empresa" required>
+            </div>
+
+            <div class="tf-group">
+                <label for="tf-segmento">Segmento de atuação</label>
+                <select id="tf-segmento" name="segmento" required>
+                    <option value="" disabled selected>Selecione um segmento</option>
+                    <option>Provedor de internet / ISP</option>
+                    <option>Integrador de redes ou segurança</option>
+                    <option>Empresa de telecomunicações</option>
+                    <option>Distribuidor de tecnologia</option>
+                    <option>Instalador autônomo / técnico</option>
+                    <option>Revenda de equipamentos</option>
+                    <option>Outros</option>
+                </select>
+            </div>
+
+            <div class="tf-footer">
+                <button type="button" class="btn-tf btn-secondary" onclick="prevStep()">Voltar</button>
+                <button type="submit" class="btn-tf btn-primary">Solicitar</button>
+            </div>
+        </div>
+
+    </form>
+</div>
+
+<script>
+    // Lógica para avançar de etapa validando os campos
+    function nextStep() {
+        const step1 = document.getElementById('step-1');
+        const inputs = step1.querySelectorAll('input');
+        let isValid = true;
+
+        inputs.forEach(input => {
+            if (!input.checkValidity()) {
+                input.reportValidity();
+                isValid = false;
+            }
+        });
+
+        if (isValid) {
+            document.getElementById('error-step-1').style.display = 'none';
+            document.getElementById('step-1').classList.remove('active');
+            document.getElementById('step-2').classList.add('active');
+            
+            // Atualiza a barra de progresso
+            document.getElementById('bar-2').classList.add('active');
+        } else {
+            document.getElementById('error-step-1').style.display = 'block';
+        }
+    }
+
+    // Lógica para voltar de etapa
+    function prevStep() {
+        document.getElementById('step-2').classList.remove('active');
+        document.getElementById('step-1').classList.add('active');
+        
+        // Remove preenchimento da barra 2
+        document.getElementById('bar-2').classList.remove('active');
+    }
+
+    // Máscara de Telefone Dinâmica Completa (Formato Brasil)
+    const inputTelefone = document.getElementById('tf-telefone');
+    inputTelefone.addEventListener('input', function (e) {
+        // Remove tudo que não é dígito matemático (usando dupla barra de escape)
+        let value = e.target.value.replace(/\D/g, ''); 
+        
+        if (value.length > 11) value = value.substring(0, 11);
+
+        // Aplica a formatação dinamicamente
+        if (value.length > 10) {
+            value = value.replace(/^(\d{2})(\d{5})(\d{4}).*/, '($1) $2-$3');
+        } else if (value.length > 6) {
+            value = value.replace(/^(\d{2})(\d{4})(\d{0,4}).*/, '($1) $2-$3');
+        } else if (value.length > 2) {
+            value = value.replace(/^(\d{2})(\d{0,5})/, '($1) $2');
+        } else if (value.length > 0) {
+            value = value.replace(/^(\d*)/, '($1');
+        }
+        
+        e.target.value = value;
+    });
+</script>
